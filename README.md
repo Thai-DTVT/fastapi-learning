@@ -1,5 +1,5 @@
 ALL
-1. Version python: Python 3.11.8, fas
+1. Version python: Python 3.11.8.
 2. Services,plugin: fastapi, sqlalchemy, uvicorn, pydantic
 3. Database: SQLite3
 How to run
