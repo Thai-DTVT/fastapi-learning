@@ -58,32 +58,32 @@ class ValueTooLargeError(Error):
 class ValueTooSmallError(Error):
     """Raised when the input value is too small"""
     pass
-#Math fibonacci        
-# def fibonacci_sequence(n: int) -> schemas.FibonacciResponse:
-#     if n <= 0:
-#         raise ValueTooSmallError
-#     elif n == 1:
-#         return schemas.FibonacciResponse(result=[0]) 
-#     elif n == 2:
-#         return schemas.FibonacciResponse(result=[0]) 
-#     elif n > 500:
-#         raise ValueTooLargeError
-#     else:
-#         sequence = [0, 1]
-#         for _ in range(2, n):
-#             next_fib = sequence[-1] + sequence[-2]
-#             sequence.append(next_fib)
-#         return schemas.FibonacciResponse(result=sequence)
-
+#Math fibonacci  chính      
 def fibonacci_sequence(n: int) -> schemas.FibonacciResponse:
-    
-    if n == 1:
+    if n <= 0:
+        raise ValueTooSmallError
+    elif n == 1:
         return schemas.FibonacciResponse(result=[0]) 
     elif n == 2:
         return schemas.FibonacciResponse(result=[0]) 
+    elif n > 500:
+        raise ValueTooLargeError
     else:
         sequence = [0, 1]
         for _ in range(2, n):
             next_fib = sequence[-1] + sequence[-2]
             sequence.append(next_fib)
         return schemas.FibonacciResponse(result=sequence)
+#Math fibonacci  thử
+# def fibonacci_sequence(n: int) -> schemas.FibonacciResponse:
+    
+#     if n == 1:
+#         return schemas.FibonacciResponse(result=[0]) 
+#     elif n == 2:
+#         return schemas.FibonacciResponse(result=[0]) 
+#     else:
+#         sequence = [0, 1]
+#         for _ in range(2, n):
+#             next_fib = sequence[-1] + sequence[-2]
+#             sequence.append(next_fib)
+#         return schemas.FibonacciResponse(result=sequence)
