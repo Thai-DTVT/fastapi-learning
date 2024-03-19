@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 #from fastapi import  HTTPException
 #import getpass
-from typing import List
+#from typing import List
 #Get user
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -59,34 +59,31 @@ class ValueTooSmallError(Error):
     """Raised when the input value is too small"""
     pass
 #Math fibonacci        
+# def fibonacci_sequence(n: int) -> schemas.FibonacciResponse:
+#     if n <= 0:
+#         raise ValueTooSmallError
+#     elif n == 1:
+#         return schemas.FibonacciResponse(result=[0]) 
+#     elif n == 2:
+#         return schemas.FibonacciResponse(result=[0]) 
+#     elif n > 500:
+#         raise ValueTooLargeError
+#     else:
+#         sequence = [0, 1]
+#         for _ in range(2, n):
+#             next_fib = sequence[-1] + sequence[-2]
+#             sequence.append(next_fib)
+#         return schemas.FibonacciResponse(result=sequence)
+
 def fibonacci_sequence(n: int) -> schemas.FibonacciResponse:
-    if n <= 0:
-        raise ValueTooSmallError
-    elif n == 1:
+    
+    if n == 1:
         return schemas.FibonacciResponse(result=[0]) 
     elif n == 2:
         return schemas.FibonacciResponse(result=[0]) 
-    elif n > 500:
-        raise ValueTooLargeError
     else:
         sequence = [0, 1]
         for _ in range(2, n):
             next_fib = sequence[-1] + sequence[-2]
             sequence.append(next_fib)
         return schemas.FibonacciResponse(result=sequence)
-
-# def fibonacci_sequence(n: int) :
-#     # if n <= 0:
-#     #     return []
-#     # elif n == 1:
-#     #     return [0]
-#     # elif n == 2:
-#     #     return [0, 1]
-#     # elif n > 500:
-#     #     raise HTTPException(status_code=400, detail="Max =500. Vui lòng nhập lại")
-#     # else:
-#     sequence = [0, 1]
-#     for _ in range(2, n):
-#         next_fib = sequence[-1] + sequence[-2]
-#         sequence.append(next_fib)
-#     return sequence

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
-#from pydantic import conint
+from pydantic import BaseModel
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -59,20 +59,30 @@ def change_password(user_id: int, user_change: schemas.UserChange, old_password:
     
     return {"message": "Password changed successfully"}
 
-#try method get match fibonacci with ui
+class FibonacciRequest(BaseModel):
+    n: conint(strict=True, ge=0, lt=500)
+
 @app.get("/fibonacci/{n}", response_model=schemas.FibonacciResponse)
-async def get_fibonacci(n: int):
-    # try:
-    #     sequence = crud.fibonacci_sequence(n)
-    #     return sequence
-    # except crud.ValueTooLargeError as e:
-    #     raise HTTPException(status_code=400, detail=e)
-    try:
-        sequence = crud.fibonacci_sequence(n)
-        return sequence
-    except crud.ValueTooSmallError:
-        raise HTTPException(status_code=400, detail="Số nhập vào quá nhỏ. Vui long nhập số lớn hơn 0.")
-    except crud.ValueTooLargeError:
-        raise HTTPException(status_code=400, detail="Số nhập vào lớn hơn giới hạn. Vui lòng nhập số nhỏ hơn số giới hạn là 500.")
+async def get_fibonacci(n: conint(strict=True, ge=0, lt=500)):
+# in pydantic > 3.0 su dung Annotated
+    sequence = crud.fibonacci_sequence(n)
+    return {"result": sequence}
+#try method get match fibonacci with ui
+# @app.get("/fibonacci/{n}", response_model=schemas.FibonacciResponse)
+# async def get_fibonacci(n: int):
+#     # try:
+#     #     sequence = crud.fibonacci_sequence(n)
+#     #     return sequence
+#     # except crud.ValueTooLargeError as e:
+#     #     raise HTTPException(status_code=400, detail=e)
+#     try:
+#         sequence = crud.fibonacci_sequence(n)
+#         return sequence
+#     except crud.ValueTooSmallError:
+#         raise HTTPException(status_code=400, detail="Số nhập vào quá nhỏ. Vui long nhập số lớn hơn 0.")
+#     except crud.ValueTooLargeError:
+#         raise HTTPException(status_code=400, detail="Số nhập vào lớn hơn giới hạn. Vui lòng nhập số nhỏ hơn số giới hạn là 500.")
+
+
 
 
